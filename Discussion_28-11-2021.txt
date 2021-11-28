@@ -1,0 +1,29 @@
+Steps
+Department -> Class
+	departName
+Prompted Output:
+	Technical, Admin, Human Resource, Legal
+Employee
+	firstName
+	lastName
+	Employee(firstName, lastName)
+CredentialService 
+	generatePassword
+		-> number, capital letter, small letter & special character
+	generateEmailAddress
+		-> firstNamelastName@department.company.com
+	showCredentials 
+		-> show password		
+Driver
+	-> Employee object creation -> Dummy Object
+	-> departpartment input
+		-> 1.Technical
+		-> 2. Admin
+		-> 3. Human Resource
+		-> 4. Legal
+	
+	-> Accept User input
+		-> 1 -> generateEmailAddress
+		-> 1 -> generatePassword
+		-> 1 -> showCredentials 		
+			-> Please Enter the valid input

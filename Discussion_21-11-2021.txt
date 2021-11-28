@@ -1,0 +1,42 @@
+Steps:
+
+1. Customer
+	bankAccountNo, 
+	password
+	
+2. Utilities
+	----------
+	Banking
+		+ balance
+			Deposit
+				if(amount > 0)
+					deposit
+					add to the balance (Credit)
+				else	
+					deny				
+			Withdraw
+				if amount < balance
+					deny the user
+				else
+					allow the user
+					udpate the balance(Debit)
+			Transfer
+				generate the otp
+				verify the otp
+				take acc no and pass and update the bank balance
+		
+3. OTPGenerator
+	generateOTP -> randomPin
+		
+4. Driver
+	-> Drive the entire Banking application
+		->Creates Customer Object -> Customer constructor
+		-> bankAccountNo and password
+			if not matching
+				deny the user from entering in the banking application
+			else
+				switch
+					1. Deposit
+					2. Withdrawl
+					3. Transfer
+					4. Logout
