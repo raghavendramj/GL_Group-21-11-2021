@@ -1,0 +1,103 @@
+Write a program of Balancing Brackets, use a suitable data structure to print whether the string 
+entered is a Balanced Brackets or Unbalanced String
+
+(10 + (20*3)+[2+1]+{13+45})
+(()[]{}) 			-> Balanced -> true
+([{}])  			-> Balanced -> true
+([]{})  			-> Balanced -> true
+{([])}  			-> Balanced -> true
+{][)(}  			-> Balanced -> false
+)(  				-> Balanced -> false
+({]})  			-> Balanced -> false
+( [ [ { } ] ] ) 	-> Balanced => true
+( [ [ { }} ]  ) 	-> Balanced => false
+()				 	-> Balanced => true
+(){}[]			 	-> Balanced => true
+({}]			 	-> Balanced => false
+(					-> Balanced => false
+)			 		-> Balanced => false
+(((			 		-> Balanced => false
+)))			 		-> Balanced => false
+]})			 		-> Balanced => false
+
+
+Data Structure of choice :- Stack
+	Input :- ( [ { } ] ) 
+	Stack
+		-> 0 -> ( -> Stack -> 			(
+		-> 1 -> ( -> Stack ->		 	(  [  	
+		-> 2 -> { -> Stack -> 	(	[ 	{ 
+		-> 3 -> } -> Stack -> 	(	[ 	{  	 ->if( Top -> } -> { ) -> peek('{') => Resultant Stack -> 	(	[
+		-> 4-> ] -> Stack -> 			(	[ 	  ->if( Top -> ] -> [ ) -> peek('[') => Resultant Stack -> 	(	 
+		-> 5-> )  -> Stack -> 			(	  ->if( Top -> ) -> ( ) -> peek('(') => Resultant Stack ->  Empty
+		
+		if(stack.isEmpty())
+			return "Brackets are balanced"; 
+	
+Input :- ( [ { ] ) 	
+	0 -> (
+	1 -> ( [
+	2 -> ( [ {
+	3 ->  (  {
+	4 ->   { 
+	
+	Stack -> { -> 
+		if(stack.isEmpty())
+			return "Brackets are balanced";
+		else
+			return "Brackets are not balanced";
+			
+			
+		isBalancedBrackets(brackets)
+			stack
+			for i-> 0 to n
+				ch = brackets[i];
+				if(ch == '['  || ch == '{' || ch == '[' ){
+					stack.push(ch);
+				} else  if(ch == ']'  || ch == '}' || ch == ']'  && !stack.isEmpty() ){
+						currentTop = stack.peek();
+						if( currentTop == '{' && ch=='}' || currentTop == '[' && ch==']'  || currentTop == '(' && ch==')'  ){
+							stack.pop();
+						} else {
+							return "Not balanced";
+						}
+				} else {
+					if(ch == ']'  || ch == '}' || ch == ']' )
+						return "Not balanced";
+				} 
+			if(stack.isEmpty())
+				return "Brackets are balanced";
+			else
+				return "Brackets are not balanced";
+				
+
+Print the longest path from the root to the leaf in a binary tree
+		class Node{
+			int data;
+			Node left;
+			Node right;
+		}
+
+		List<Node> findLongestPath(Node root){
+			
+			if(root == null){
+				return new ArrayList<>();
+			}
+			
+			//Recursive call on left node
+			List<Node> leftNode = findLongestPath(root.left);
+			
+			//Recursive call on right node
+			List<Node> rightNode = findLongestPath(root.right);
+			
+				if(rightNode.size() > leftNode.size()) {
+					rightNode.add(root);
+				} else {
+					leftNode.add(root);
+				} 		
+			
+			return (rightNode.size() > leftNode.size() ) ? rightNode : leftNode;
+		}
+	
+				
+		
