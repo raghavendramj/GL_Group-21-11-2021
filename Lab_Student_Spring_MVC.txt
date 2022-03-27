@@ -1,0 +1,57 @@
+@Entity
+Student
+	name, department, country
+StudentService -> Interface
+	-> C -> saveStudent(student);
+	-> R -> getAllStudents(), getStudent(int studentId);
+	-> U -> updateStudent(student / <name, department, country>)
+	-> D -> deleteStudent(int studentId)
+	-> searchStudent(department, country)
+
+@Repository
+StudentServiceImpl
+	-> SessionFactory -> CRUD Method ->@Autowired -> Constructor Injection
+	-> Session
+	-> getAllStudents, getStudent
+	-> searchStudent(department, country)
+	@Transactional
+		saveStudent, updateStudent, deleteStudent
+
+@Controller
+@RequestMapping("/students")
+StudentController
+	-> /list -> listStudents(theModel) -> "list-students" + (Students -> theStudents) 	-> /WEB-INF/views/list-students.jsp
+	-> /showFormForAdd -> showFormForAdd(theModel)  -> "student-form"+ (Student -> theStudent) -> /WEB-INF/views/student-form.jsp
+	-> /showFormForUpdate -> showFormForUpdate(theModel)  -> "student-form"+ (Student -> theStudent) -> /WEB-INF/views/student-form.jsp
+	-> /save ->saveStudent(id, department, country)
+			CREATE  -> id=0, name, department, country -> redirect:/students/list	-> /students/list
+			UPDATE  -> id=4, name, department, country -> redirect:/students/list -> /students/list
+	-> /delete -> deleteStudent(id) -> redirect:/students/list
+	-> /search -> searchStudent(name, country) -> list-students + (Students -> theStudents)
+
+View JSPs
+	-> list-students.jsp
+			-> Create : Add Student
+			-> Get ->List of students ->
+					-> Update : -> Btn: update, delete
+					-> Delete : -> Btn:  delete
+	-> student-form.jsp
+				id, department, country -> list-students.jsp
+
+Request :-
+	Get All Students :- READ / GET
+	http://localhost:8188/sprinig_mvc_student_app/students/list
+		-> StudentController ->  /students/list  -> listStudents(theModel) -> list-students + (Students -> theStudents) -> list-students.jsp
+
+	Add Student -> CREATE
+		-> http://localhost:8188/sprinig_mvc_student_app/students/showFormForAdd
+		-> StudentController /students/showFormForAdd -> showFormForAdd(theModel) -> student-form + (Student -> theStudent) -> Create -> Model is optional -> list-students.jsp
+
+	Update Student -> UPDATE
+		-> http://localhost:8188/sprinig_mvc_student_app/students/showFormForUpdate
+		-> StudentController	/students/showFormForUpdate -> showFormForUpdate(theModel) -> student-form + (Student -> theStudent) -> Model is Mandatory -> list-students.jsp
+
+	Search Student
+		-> department, country ->
+		-> StudentController	/students/search -> searchStudent(name, country) -> (Student -> theStudent) -> list-students.jsp
+
