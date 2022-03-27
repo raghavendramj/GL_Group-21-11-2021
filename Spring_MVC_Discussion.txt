@@ -1,0 +1,30 @@
+End Goal :- Library Management System
+
+Frameworks :-
+	1. Spring MVC -> All Spring MVC related maven deps
+	2. Hibernates -> All hibernates related deps 
+	3. MySQL Connector -> my sql deps
+
+Spring
+	-> Dependency Injection
+
+
+Data Layer
+	@Entity
+		Book
+			Book Id (Auto Increment)
+			Title
+			Author
+			Category
+
+
+Service Layer -> logic and fetch the details from database
+	BookService
+		List<Book> getBooks();
+		void saveBook(Book myBook);
+		void deleteBook(Long id);
+		List<Book> getBookByAuthorAndName(String author, String name);
+		
+	BookController -> always returns view name + model set in the session
+		-> /list -> listBooks(theModel) -> books -> JSP(list-books.jsp)
+		-> /showFromForAdd -> showFromForAdd(theModel) -> book-form -> JSP(book-form.jsp) + Model (Book -> books)
